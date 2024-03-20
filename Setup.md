@@ -9,7 +9,7 @@ ramo: Grafica
 ### Python
 
 Descargamos la ultima version estable de Python aquí: https://www.python.org/downloads/windows/
-![](./captures/0.png|550)
+![](./captures/0.png)
 
 Abrimos el instalador y **TENEMOS** que seleccionar `Add python.exe to PATH`, si no lo hacen tienen que empezar de nuevo la instalación :)
 ![](./captures/1.png|550)
