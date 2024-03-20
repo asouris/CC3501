@@ -9,10 +9,10 @@ ramo: Grafica
 ### Python
 
 Descargamos la ultima version estable de Python aquí: https://www.python.org/downloads/windows/
-\![\[0.png\|550\]\]
+![](./captures/0.png|550)
 
 Abrimos el instalador y **TENEMOS** que seleccionar `Add python.exe to PATH`, si no lo hacen tienen que empezar de nuevo la instalación :)
-\![\[1.png\|550\]\]
+![](./captures/1.png|550)
 Cuando la instalación termine, habren una terminal y escriben:
 
 ``` powershell
@@ -103,7 +103,7 @@ Instalen Git con
 
 Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los codigos de los aux y otras cosas utiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-\![\[2.png\|500\]\]
+![](./captures/2.png|550)
 
 Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
 
@@ -195,7 +195,7 @@ brew install git
 
 Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los códigos de los aux y otras cosas útiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-\![\[2.png\|500\]\]
+![](./captures/2.png|550)
 
 Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
 
@@ -282,7 +282,7 @@ sudo apt-get install git
 
 Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los códigos de los aux y otras cosas útiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-\![\[2.png\|500\]\]
+![](./captures/2.png|550)
 
 Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
 
@@ -306,4 +306,4 @@ python CC3501/ejemplos/ej_aux1.py
 ```
 
 Si todo sale bien deberia habrirse una ventana y veriamos algo así:
-\![\[3.png\|400\]\]
+![](./captures/3.png|550)
