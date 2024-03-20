@@ -1,9 +1,3 @@
----
-clase: Setup
-creationDate: 19-03-2024
-ramo: Grafica
----
-
 ## Windows
 
 ### Python
