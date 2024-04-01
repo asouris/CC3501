@@ -6,6 +6,8 @@ from OpenGL import GL
 from pathlib import Path
 from utils.helpers import Model, Mesh
 
+# :)
+
 WIDTH = 640
 HEIGHT = 640
 TIME = 0
