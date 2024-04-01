@@ -67,7 +67,7 @@ class Model():
 # programa principal
 if __name__ == "__main__":
     # creamos una instancia del controlador
-    controller = Controller("Auxiliar 1", width=WIDTH,
+    controller = Controller("Butterfly Moving", width=WIDTH,
                             height=HEIGHT, resizable=True)
 
     with open(Path(os.path.dirname(__file__)) / "shaders/transform.vert") as f:
@@ -212,9 +212,9 @@ if __name__ == "__main__":
         wing1.position[1] = np.sin(TIME*2)/(TIME)
         wing2.position[1] = np.sin(TIME*2)/(TIME)
 
-        # body.position[0] += 0.003
-        # wing1.position[0] += 0.003
-        # wing2.position[0] += 0.003
+        body.position[0] += 0.003
+        wing1.position[0] += 0.003
+        wing2.position[0] += 0.003
 
         body.scale -= 0.0001
         wing1.scale -= 0.0001

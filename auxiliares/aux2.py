@@ -75,7 +75,7 @@ class Model():
 # Programa principal
 if __name__ == "__main__":
     # creamos una instancia del controlador
-    controller = Controller("Auxiliar 1", width=WIDTH,
+    controller = Controller("Auxiliar 2", width=WIDTH,
                             height=HEIGHT, resizable=True)
 
     # Importamos los shaders

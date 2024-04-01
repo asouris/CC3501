@@ -294,7 +294,7 @@ pip install numpy pyglet pyopengl
 Y habiendo clonado el repositorio previamente, vamos a ejecutar un ejemplo llamado **ej_aux1.py**
 
 ``` zsh
-python CC3501/ejemplos/ej_aux1.py
+python CC3501/auxiliares/aux0.py
 ```
 
 Si todo sale bien deberia habrirse una ventana y veriamos algo así:

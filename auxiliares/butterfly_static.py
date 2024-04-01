@@ -19,7 +19,7 @@ class Controller(pyglet.window.Window):
 
 if __name__ == "__main__":
     # Instancia del controller
-    controller = Controller("Auxiliar 1", width=WIDTH,
+    controller = Controller("Butterfly Static", width=WIDTH,
                             height=HEIGHT, resizable=True)
 
     # Código del vertex shader
