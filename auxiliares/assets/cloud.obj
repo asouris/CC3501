@@ -1,6 +1,5 @@
 # Blender 4.0.2
 # www.blender.org
-mtllib cloud.mtl
 o Circle
 v 1.112014 2.394137 0.000000
 v 0.857364 2.369056 0.000000
