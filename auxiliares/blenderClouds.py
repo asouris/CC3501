@@ -32,10 +32,10 @@ if __name__ == "__main__":
                             height=HEIGHT, resizable=True)
 
     # Importamos los shaders
-    with open(Path(os.path.dirname(__file__)) / "shaders/transform.vert") as f:
+    with open(Path(os.path.dirname(__file__)) / "shaders/transform_alpha.vert") as f:
         vertex_source_code = f.read()
 
-    with open(Path(os.path.dirname(__file__)) / "shaders/color.frag") as f:
+    with open(Path(os.path.dirname(__file__)) / "shaders/color_alpha.frag") as f:
         fragment_source_code = f.read()
 
     # Compilación de shaders
