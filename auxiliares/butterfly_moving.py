@@ -232,22 +232,22 @@ if __name__ == "__main__":
         # se le dice al pipeline que se va a usar
         pipeline.use()
 
-        pipeline["u_model"] = axes.get_transform()
+        pipeline["u_transform"] = axes.get_transform()
         axes.draw(GL.GL_LINES)
 
-        pipeline["u_model"] = wing1.get_transform()
+        pipeline["u_transform"] = wing1.get_transform()
         wing1.draw(GL.GL_TRIANGLES)
 
-        pipeline["u_model"] = body.get_transform()
+        pipeline["u_transform"] = body.get_transform()
         body.draw(GL.GL_TRIANGLES)
 
-        pipeline["u_model"] = wing2.get_transform()
+        pipeline["u_transform"] = wing2.get_transform()
         wing2.draw(GL.GL_TRIANGLES)
 
-        # pipeline["u_model"] = capsule.get_transform()
+        # pipeline["u_transform"] = capsule.get_transform()
         # capsule.draw()
 
-        # pipeline["u_model"] = triangle.get_transform()
+        # pipeline["u_transform"] = triangle.get_transform()
         # triangle.draw()
 
     pyglet.clock.schedule_interval(update, 1/60)

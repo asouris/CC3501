@@ -124,13 +124,13 @@ if __name__ == "__main__":
         # se le dice al pipeline que se va a usar
         pipeline.use()
 
-        pipeline["u_model"] = capsule.get_transform()
+        pipeline["u_transform"] = capsule.get_transform()
         capsule.draw()
 
-        pipeline["u_model"] = triangle.get_transform()
+        pipeline["u_transform"] = triangle.get_transform()
         triangle.draw()
 
-        pipeline["u_model"] = triangle2.get_transform()
+        pipeline["u_transform"] = triangle2.get_transform()
         triangle2.draw()
 
     pyglet.clock.schedule_interval(update, 1/60)

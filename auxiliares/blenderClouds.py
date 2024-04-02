@@ -98,13 +98,13 @@ if __name__ == "__main__":
 
         # Por cada figura hacemos dos cosas:
         # le pasamos la transformacion de la figura al vertex shader
-        pipeline["u_model"] = cloud.get_transform()
+        pipeline["u_transform"] = cloud.get_transform()
         cloud.draw()  # y dibujamos
 
-        pipeline["u_model"] = cloud2.get_transform()
+        pipeline["u_transform"] = cloud2.get_transform()
         cloud2.draw()
 
-        pipeline["u_model"] = cloud3.get_transform()
+        pipeline["u_transform"] = cloud3.get_transform()
         cloud3.draw()
 
     pyglet.clock.schedule_interval(update, 1/60)
