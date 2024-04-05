@@ -105,16 +105,16 @@ if __name__ == "__main__":
 
         # Por cada figura hacemos dos cosas:
         # le pasamos la transformacion de la figura al vertex shader
-        pipeline["u_model"] = sus1.get_transform()
+        pipeline["u_transform"] = sus1.get_transform()
         sus1.draw()  # y dibujamos
 
-        pipeline["u_model"] = sus2.get_transform()
+        pipeline["u_transform"] = sus2.get_transform()
         sus2.draw()
 
-        pipeline["u_model"] = sus3.get_transform()
+        pipeline["u_transform"] = sus3.get_transform()
         sus3.draw()
 
-        pipeline["u_model"] = sus4.get_transform()
+        pipeline["u_transform"] = sus4.get_transform()
         sus4.draw()
 
     pyglet.clock.schedule_interval(update, 1/60)
