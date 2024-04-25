@@ -3,136 +3,9 @@ import trimesh as tm
 from OpenGL import GL
 import utils.transformations as tr
 import networkx as nx
+from trimesh.scene.scene import Scene
 
-
-# Clase Model() nos ayuda a transformar las figuras de forma mas facil
-# Se inicializa con las posiciones de los vertices, los colores de los vertices y la index_data si es que
-# tenemos una figura con vertices indexados
-class Model():
-    def __init__(self, position_data, index_data=None):
-        self.position_data = position_data
-
-        self.index_data = index_data
-        if index_data is not None:
-            self.index_data = np.array(index_data, dtype=np.uint32)
-
-        self.gpu_data = None
-
-    def init_gpu_data(self, pipeline):
-        self.pipeline = pipeline
-        if self.index_data is not None:
-            self.gpu_data = pipeline.vertex_list_indexed(
-                len(self.position_data) // 3, GL.GL_TRIANGLES, self.index_data)
-        else:
-            self.gpu_data = pipeline.vertex_list(
-                len(self.position_data) // 3, GL.GL_TRIANGLES)
-
-        self.gpu_data.position[:] = self.position_data
-
-    def draw(self, mode=GL.GL_TRIANGLES):
-        self.gpu_data.draw(mode)
-
-
-# La clase Mesh(Model) es un Model pero con funciones extra,
-# Nos permite pasar un mesh hecho en algun software de modelado a OpenGL
-# Recibe el path hacia el file, y un color base opcional
-class Mesh(Model):
-    def __init__(self, asset_path):
-        mesh_data = tm.load(asset_path)
-        mesh_scale = tr.uniformScale(2.0 / mesh_data.scale)
-        mesh_translate = tr.translate(*-mesh_data.centroid)
-        mesh_data.apply_transform(mesh_scale @ mesh_translate)
-        vertex_data = tm.rendering.mesh_to_vertexlist(mesh_data)
-        indices = vertex_data[3]
-        positions = vertex_data[4][1]
-
-        super().__init__(positions, indices)
-
-
-class SceneGraph():
-    def __init__(self, camera=None):
-        self.graph = nx.DiGraph(root="root")
-        self.add_node("root")
-        self.camera = camera
-
-    def add_node(self,
-                 name,
-                 attach_to=None,
-                 mesh=None,
-                 color=[1, 1, 1],
-                 transform=tr.identity(),
-                 position=[0, 0, 0],
-                 rotation=[0, 0, 0],
-                 scale=[1, 1, 1],
-                 mode=GL.GL_TRIANGLES):
-        self.graph.add_node(
-            name,
-            mesh=mesh,
-            color=color,
-            transform=transform,
-            position=np.array(position, dtype=np.float32),
-            rotation=np.array(rotation, dtype=np.float32),
-            scale=np.array(scale, dtype=np.float32),
-            mode=mode)
-        if attach_to is None:
-            attach_to = "root"
-
-        self.graph.add_edge(attach_to, name)
-
-    def __getitem__(self, name):
-        if name not in self.graph.nodes:
-            raise KeyError(f"Node {name} not in graph")
-
-        return self.graph.nodes[name]
-
-    def __setitem__(self, name, value):
-        if name not in self.graph.nodes:
-            raise KeyError(f"Node {name} not in graph")
-
-        self.graph.nodes[name] = value
-
-    def get_transform(self, node):
-        node = self.graph.nodes[node]
-        transform = node["transform"]
-        translation_matrix = tr.translate(
-            node["position"][0], node["position"][1], node["position"][2])
-        rotation_matrix = tr.rotationX(node["rotation"][0]) @ tr.rotationY(
-            node["rotation"][1]) @ tr.rotationZ(node["rotation"][2])
-        scale_matrix = tr.scale(
-            node["scale"][0], node["scale"][1], node["scale"][2])
-        return transform @ translation_matrix @ rotation_matrix @ scale_matrix
-
-    def draw(self):
-        root_key = self.graph.graph["root"]
-        edges = list(nx.edge_dfs(self.graph, source=root_key))
-        transformations = {root_key: self.get_transform(root_key)}
-
-        for src, dst in edges:
-            current_node = self.graph.nodes[dst]
-
-            if not dst in transformations:
-                transformations[dst] = transformations[src] @ self.get_transform(
-                    dst)
-
-            if current_node["mesh"] is not None:
-                current_pipeline = current_node["mesh"].pipeline
-                current_pipeline.use()
-
-                if self.camera is not None:
-                    if "u_view" in current_pipeline.uniforms:
-                        current_pipeline["u_view"] = self.camera.get_view()
-
-                    if "u_projection" in current_pipeline.uniforms:
-                        current_pipeline["u_projection"] = self.camera.get_projection(
-                        )
-
-                current_pipeline["u_transform"] = np.reshape(
-                    transformations[dst], (16, 1), order="F")
-
-                if "u_color" in current_pipeline.uniforms:
-                    current_pipeline["u_color"] = np.array(
-                        current_node["color"], dtype=np.float32)
-                current_node["mesh"].draw(current_node["mode"])
+from utils.drawables import Model, Texture
 
 
 class Camera():
@@ -186,3 +59,35 @@ class OrbitCamera(Camera):
         self.position[1] = self.distance * np.cos(self.theta)
         self.position[2] = self.distance * \
             np.sin(self.theta) * np.cos(self.phi)
+
+
+def mesh_from_file(path):
+    mesh_data = tm.load(path)
+    mesh_data.apply_transform(tr.uniformScale(
+        2.0 / mesh_data.scale) @ tr.translate(*-mesh_data.centroid))
+
+    mesh_list = []
+
+    def process_geometry(id, geometry):
+        vertex_data = tm.rendering.mesh_to_vertexlist(geometry)
+        indices = vertex_data[3]
+        positions = vertex_data[4][1]
+        uvs = None
+        texture = None
+        normals = vertex_data[5][1]
+
+        if geometry.visual.kind == "texture":
+            texture = Texture()
+            uvs = vertex_data[6][1]
+            texture.create_from_image(geometry.visual.material.image)
+
+        model = Model(positions, uvs, normals, indices)
+        return {"id": id, "mesh": model, "texture": texture}
+
+    if type(mesh_data) is Scene:
+        for id, geometry in mesh_data.geometry.items():
+            mesh_list.append(process_geometry(id, geometry))
+    else:
+        mesh_list.append(process_geometry("model", mesh_data))
+
+    return mesh_list
