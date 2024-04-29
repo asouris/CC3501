@@ -95,11 +95,12 @@ if __name__ == "__main__":
 
     def update(dt):
         global direction
+
+        controller.program_state["total_time"] += dt
+
         # variables del controller
         time = controller.program_state["total_time"]
         camera = controller.program_state["camera"]
-
-        time += dt
 
         # control de la camara
         camera.position = graph["cow"]["position"] - \
