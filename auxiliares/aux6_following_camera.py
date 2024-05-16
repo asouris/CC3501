@@ -70,7 +70,8 @@ if __name__ == "__main__":
 
     # Defino mis objetos
 
-    cowMesh = mesh_from_file("assets/cow.obj")[0]["mesh"]
+    cowMesh = mesh_from_file(
+        Path(os.path.dirname(__file__)) / "assets/cow.obj")[0]["mesh"]
     cowMesh.init_gpu_data(pipeline)
     direction = np.array([1, 0, 0])
     # Creo un grafo de escena
