@@ -68,26 +68,13 @@ vec3 computeDirectionalLight(vec3 normal, vec3 viewDir, DirectionalLight light) 
     vec3 ambient = light.ambient * u_material.ambient;
 
     // diffuse
-    
     float diff = max(dot(normal, light.direction), 0.0f);
     vec3 diffuse = light.diffuse * (diff * u_material.diffuse);
-    
 
     // specular blinn phong
-    
     vec3 halfwayDir = normalize(light.direction + viewDir);
     float spec = pow(max(dot(normal, halfwayDir), 0.0f), u_material.shininess);
     vec3 specular = light.specular * (spec * u_material.specular);
-    
-
-    //specular phong
-
-    
-    vec3 R = -light.direction - 2*dot(-light.direction, normal) * normal;
-    float specPhong = max(dot(R, viewDir), 0.0f);
-    specPhong = pow(specPhong, u_material.shininess);
-    vec3 specularPhong = light.specular * (specPhong * u_material.specular);
-    
 
     return (ambient + diffuse + specular);
 }
@@ -98,10 +85,10 @@ vec3 computePointLight(vec3 normal, vec3 viewDir, PointLight light) {
     float distance = length(lightVec);
     float attenuation = 1.0f / ( light.linear * distance + light.quadratic * distance * distance + light.constant );
 
-    // ambient
+    // ambent
     vec3 ambient = light.ambient * u_material.ambient;
 
-    // diffuse
+    // diffiuse
     vec3 lightDir = normalize(lightVec);
     float diff = max(dot(normal, lightDir), 0.0f);
     vec3 diffuse = light.diffuse * (diff * u_material.diffuse);
@@ -144,22 +131,40 @@ vec3 computeSpotLight(vec3 normal, vec3 viewDir, SpotLight light) {
 
 void main()
 {
-    vec3 normal = normalize(fragNormal);
+    int toon_levels = 4;
+    float toon_scale_factor = 1.0/toon_levels;
+// DIRECTIONAL LIGHT
+    //ambient
+    vec3 ambient_total = u_dirLight.ambient * u_material.ambient;
+    //diffuse
+    vec3 normal = normalize(fragNormal);//cause interpolation post vertex shader
+    float lambert = dot(normal, u_dirLight.direction);
+    float diffuseFactor = floor(lambert * toon_levels) * toon_scale_factor;
+
+    vec3 diffuse_total = u_dirLight.diffuse * (u_material.diffuse * diffuseFactor);
+    //vec3 diffuse_total = u_dirLight.diffuse * (ceil(lambert*2)/2 * u_material.diffuse);
+    //specular
     vec3 viewDir = normalize(u_viewPos - fragPos);
+    //vec3 R = reflect(-u_dirLight.direction, normal);
+    vec3 H = normalize(u_dirLight.direction + viewDir);
+    float specular = max(0, dot(H, normal)) * (lambert > 0 ? 1 : 0 );
 
-    vec3 result = vec3(0.0);
+    if (specular > 0.95) specular = 0.95;
+    else if (specular > 0.9) specular = 0.9;
+    else specular = 0;
+    //specular shininess
+    float specular_exp = exp2(u_material.shininess * 8) + 2;
+    vec3 specular_total = pow(specular, specular_exp) * u_dirLight.specular;
 
-    result += computeDirectionalLight(normal, viewDir, u_dirLight);
+    //rim lighting
+    float rimLightIntensity = dot(viewDir, normal);
+    rimLightIntensity = max(0.0, 1 - rimLightIntensity);
+    rimLightIntensity = smoothstep(0.59, 0.61, rimLightIntensity);
+    vec3 rimLight = rimLightIntensity * diffuse_total;
 
-    if (u_numPointLights > 0 && u_numPointLights <= MAX_POINT_LIGHTS) {
-        for (int i = 0; i < u_numPointLights; i++)
-            result += computePointLight(normal, viewDir, u_pointLights[i]);
-    }
+    
 
-    if (u_numSpotLights > 0 && u_numSpotLights <= MAX_SPOT_LIGHTS) {
-        for (int i = 0; i < u_numSpotLights; i++)
-            result += computeSpotLight(normal, viewDir, u_spotLights[i]);
-    }
 
-    outColor = vec4(result, 1.0f);
+    outColor = vec4(ambient_total + diffuse_total + rimLight, 1.0f);
+    
 }
