@@ -1,5 +1,5 @@
 import numpy as np
-from OpenGL.GL import glEnable, glDisable, glBindTexture, GL_TRIANGLES, GL_CULL_FACE, GL_TEXTURE_2D, GL_CLAMP_TO_EDGE, GL_LINEAR
+from OpenGL.GL import glEnable, glDisable, glBindTexture, GL_TRIANGLES, GL_CULL_FACE, GL_TEXTURE_2D, GL_CLAMP_TO_EDGE, GL_LINEAR, GL_NEAREST
 from PIL import Image
 from utils.textures import texture_2D_setup
 import utils.transformations as tr
@@ -11,8 +11,8 @@ class Texture():
                  image=None,
                  sWrapMode=GL_CLAMP_TO_EDGE,
                  tWrapMode=GL_CLAMP_TO_EDGE,
-                 minFilterMode=GL_LINEAR,
-                 maxFilterMode=GL_LINEAR,
+                 minFilterMode=GL_NEAREST,
+                 maxFilterMode=GL_NEAREST,
                  flip_top_bottom=True):
         self.texture = None
         self.sWrapMode = sWrapMode
