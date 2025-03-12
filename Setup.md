@@ -288,13 +288,13 @@ git clone https://github.com/asouris/CC3501.git
 Con nuestro **venv activo**, vamos a instalar las librerias:
 
 ``` zsh
-pip install numpy pyglet pyopengl
+pip install numpy pyglet pyopengl trimesh scipy networkx pillow
 ```
 
-Y habiendo clonado el repositorio previamente, vamos a ejecutar un ejemplo llamado **ej_aux1.py**
+Y habiendo clonado el repositorio previamente, vamos a ejecutar un ejemplo llamado **triangulo.py**
 
 ``` zsh
-python CC3501/auxiliares/aux0.py
+python CC3501/triangulo.py
 ```
 
 Si todo sale bien deberia habrirse una ventana y veriamos algo así:
