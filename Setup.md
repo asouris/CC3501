@@ -70,6 +70,12 @@ Ahora queremos ejecutar un script que **activa el** **venv**. Para ello, estando
 venv\Scripts\Activate.ps1
 ```
 
+Si no les funciona intenten con esto:
+
+``` powershell
+.\venv\Scripts\Activate
+```
+
 Si esto le produce algun error, lo más probable es que por defecto windows no les permite ejecutar scripts (*medida de seguridad, no descarguen scripts random de internet porfavor*).
 Para bypasear eso ejecutamos lo siguiente:
 
