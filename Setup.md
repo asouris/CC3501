@@ -101,7 +101,6 @@ Instalen Git con
 
 ### Clonar repositorio
 
-Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los codigos de los aux y otras cosas utiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
 ![](./captures/2.png)
 
@@ -115,7 +114,7 @@ git clone https://github.com/asouris/CC3501.git
 ## MacOs
 
 *(Para Zsh, si tienen otro shell me piden ayuda pero si tienen otro shell probablemente no necesiten mi ayuda)*
-\### Python
+### Python
 Mac viene con una version antigua de python. Si escriben en la terminal:
 
 ``` zsh
@@ -184,7 +183,7 @@ source ~/Grafica/venv/bin/activate
 
 *(El path puede cambiar dependiendo de como organizaron sus carpetas)*
 Aparecerá **(venv)** al lado izquierdo de su prompt, indicando que dicho environment se encuentra activo.
-\### Git
+### Git
 Instalen git ejecutando:
 
 ``` zsh
@@ -193,7 +192,6 @@ brew install git
 
 ### Clonar repositorio
 
-Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los códigos de los aux y otras cosas útiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
 ![](./captures/2.png)
 
@@ -207,7 +205,7 @@ git clone https://github.com/asouris/CC3501.git
 ## Linux (Debian/Ubuntu)
 
 *(Para bash, si tienen otro shell me piden ayuda pero si tienen otro shell probablemente no necesiten mi ayuda)*
-\### Python
+### Python
 Primero vemos si tenemos python. Ejecuten:
 
 ``` bash
@@ -278,7 +276,6 @@ sudo apt-get install git
 
 ### Clonar repositorio
 
-Durante las prosimas semanas les voy a subir a un repo en github ejemplos, shaders, los códigos de los aux y otras cosas útiles.
 Con git pueden clonar el repositorio en su maquina. Primero copian el link.
 ![](./captures/2.png)
 
