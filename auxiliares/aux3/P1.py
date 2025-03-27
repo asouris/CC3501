@@ -36,6 +36,7 @@ if __name__ == "__main__":
     controller = Controller("Auxiliar 0", width=WIDTH,
                             height=HEIGHT, resizable=True)
 
+     # A continuación se encuentra el vertex shader para la imagen
     vertex_source_code_img = """
         #version 330
 
@@ -54,14 +55,7 @@ if __name__ == "__main__":
         }
     """
 
-    # A continuación se encuentra el vertex shader
-    # Este programa corre una vez por cada vertice 
-    # Recibe:   un vector posición de 2 dimensiones
-    #           un vector color de 3 dimensiones
-    #           un float con la intensidad del vertice
-    # 
-    # Entrega:  un vector de 3 dimensiones con el color
-    #           un vector intensidad con la intensidad            
+    # A continuación se encuentra el vertex shader          
     vertex_source_code = """
         #version 330
 
@@ -82,10 +76,6 @@ if __name__ == "__main__":
     """
 
     # Código del fragment shader
-    # Se ejecuta un vez sobre cada pixel
-    # Entrega: un vector de 4 dimensiones que define el color del pixel (r, g, b, a)
-    # donde a es la transparencia (por ahora no nos importa, se deja en 1)
-    # El color resultante de cada fragmento ("pixel") es el color del vértice multiplicado por su intensidad
     fragment_source_code = """
         #version 330
 
@@ -110,7 +100,7 @@ if __name__ == "__main__":
     pipeline = pyglet.graphics.shader.ShaderProgram(vert_shader, frag_shader)
 
     # Posición de los vértices 
-    # 3 vértices con 3 coordenadas (x, y,z)
+    # 3 vértices con 3 coordenadas (x, y, z)
     # donde (0, 0, 0) es el centro de la pantalla
     positions = np.array([
         #Auto
@@ -217,10 +207,6 @@ if __name__ == "__main__":
         pipeline["transform"] = transform
 
         gpu_triangle.draw(GL.GL_TRIANGLES)
-
-    # Como dice la documentación:
-    # The schedule_interval method causes a function to be called every “n” seconds: 
-    # schedule_interval(function, n)
 
     # Esta función recibe opcionalmente la frecuencia en que se actualiza la pantalla
     # por defecto es 1/60 pero podrían cambiarla: pyglet.app.run(1/120)

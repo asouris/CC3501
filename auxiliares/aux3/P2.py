@@ -36,6 +36,7 @@ if __name__ == "__main__":
     controller = Controller("Auxiliar 0", width=WIDTH,
                             height=HEIGHT, resizable=True)
 
+     # A continuación se encuentra el vertex shader para la imagen
     vertex_source_code_img = """
         #version 330
 
@@ -53,6 +54,7 @@ if __name__ == "__main__":
             gl_Position = vec4(position, 0.0f, 1.0f);
         }
     """           
+    # A continuación se encuentra el vertex shader        
     vertex_source_code = """
         #version 330
 
@@ -71,7 +73,7 @@ if __name__ == "__main__":
             gl_Position = transform * vec4(position, 1.0f);
         }
     """
-
+    # Código del fragment shader
     fragment_source_code = """
         #version 330
 
@@ -96,7 +98,7 @@ if __name__ == "__main__":
     pipeline = pyglet.graphics.shader.ShaderProgram(vert_shader, frag_shader)
 
     # Posición de los vértices 
-    # 3 vértices con 3 coordenadas (x, y,z)
+    # 3 vértices con 3 coordenadas (x, y, z)
     # donde (0, 0, 0) es el centro de la pantalla
     positions = np.array([
         #Auto
