@@ -202,16 +202,16 @@ if __name__ == "__main__":
         transform = tr.identity()
 
         #A
-        transform = tr.translate(-0.6,0,0)
+        #transform = tr.translate(-0.6,0,0)
 
         #B
-        transform = transform @ tr.rotationZ(np.radians(-90))
+        #transform = transform @ tr.rotationZ(np.radians(-90))
 
         #C
         #transform = transform @ tr.scale(0.5,0.3,1) #Probar con esta igual
-        transform = transform @ tr.uniformScale(0.5)
+        #transform = transform @ tr.uniformScale(0.5)
         #transform = transform @ tr.translate(0,1,0) #Probar para que vean que se giraron los ejes
-        transform = transform @ tr.translate(0.3,-0.3,0)
+        #transform = transform @ tr.translate(0.3,-0.3,0)
 
         transform = np.reshape(transform, (16, 1), order="F")
         pipeline["transform"] = transform
