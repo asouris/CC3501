@@ -7,8 +7,9 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname((os.path.dirname(__file__)))))
 import grafica.transformations as tr
 from pyglet.math import Mat4, Vec3
-from auxiliares.utils.scene_graph import *
-from auxiliares.utils import shapes
+from utils.scene_graph import *
+from utils import shapes
+from utils.drawables import Model
 
 WIDTH = 1000
 HEIGHT = 1000
@@ -99,16 +100,16 @@ void main()
     pipeline = pyglet.graphics.shader.ShaderProgram(vert_program, frag_program)
 
     #Objeto base
-    cube = GameModel(shapes.Cube["position"],shapes.Cube["indices"], pipeline)
+    cube = Model(shapes.Cube["position"],index_data = shapes.Cube["indices"])
     
     #Objetos faltantes con su transformación (conserve el scale)
-    head = GameModel(shapes.Cube["position"],shapes.Cube["indices"], pipeline)
+    head = Model(shapes.Cube["position"],index_data = shapes.Cube["indices"])
     head_model = Mat4.from_translation(Vec3(-0.2, 0.2, 0)) @ Mat4.from_scale(Vec3(0.35*0.2, 0.35*0.2, 0.35*0.2))
 
-    chest = GameModel(shapes.Cube["position"],shapes.Cube["indices"], pipeline)
+    chest = Model(shapes.Cube["position"], index_data = shapes.Cube["indices"])
     chest_model = Mat4.from_translation(Vec3(0, 0.2, 0)) @ Mat4.from_scale(Vec3(0.5*0.2, 1*0.2, 0.35*0.2))
 
-    arm = GameModel(shapes.Cube["position"],shapes.Cube["indices"], pipeline)
+    arm = Model(shapes.Cube["position"], index_data = shapes.Cube["indices"])
     arm_model = Mat4.from_translation(Vec3(0.2, 0.2, 0)) @ Mat4.from_scale(Vec3(0.2*0.2, 1*0.2, 0.2*0.2))
 
     #Grafo de escena
@@ -223,6 +224,7 @@ void main()
     def update(dt):
         #Pasa el tiempo
         window.time += dt
+        graph.update()
 
         limb_rotation = np.sin(window.time * 5) / 2
         graph["left_arm"]["transform"] = tr.translate(0, 0.5, 0) @ tr.rotationX(limb_rotation) @ tr.translate(0, -0.5, 0)

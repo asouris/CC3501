@@ -9,6 +9,9 @@ sys.path.append(os.path.dirname(os.path.dirname((os.path.dirname(__file__)))))
 from pyglet.math import Mat4, Vec3
 from utils.scene_graph import *
 from utils import shapes
+from utils.helpers import mesh_from_file
+from utils.drawables import Material
+
 
 WIDTH = 1000
 HEIGHT = 1000
@@ -102,8 +105,10 @@ void main()
 
 
     #B. Utilizando Mesh() defina la vaca y sphere
-    vaca_magica = Mesh(__file__ + "/../../../assets/cow.obj", pipeline)
-    orb = Mesh(__file__ + "/../../../assets/sphere.obj", pipeline)
+    vaca_magica = mesh_from_file(__file__ + "/../../../assets/cow.obj")[0]['mesh']
+    #print(vaca_magica.init_gpu_data(pipeline))
+    #vaca_magica = Mesh(__file__ + "/../../../assets/cow.obj", pipeline)
+    orb = mesh_from_file(__file__ + "/../../../assets/sphere.obj")[0]['mesh']
 
     # C. Haga el grafo para la escena dada
     graph = SceneGraph()
@@ -116,7 +121,8 @@ void main()
                    attach_to="vaca_orbs",
                    mesh=vaca_magica,
                    pipeline=pipeline,
-                   color = [1, 1, 1])
+                   color = [1, 1, 1],
+                   material=Material())
     
     #Orbs
     graph.add_node("orb1",
@@ -144,23 +150,11 @@ void main()
     pipeline["view"] = Mat4.look_at(Vec3(0, 1, -.5), Vec3(0, 1, 1), Vec3(0, 1, 0))
 
 
-    @window.event
-    def on_draw():
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_CULL_FACE)
-        glClearColor(0.1, 0.1, 0.1, 0.0)
-        
-        window.clear()
-
-        pipeline.use()
-
-        #Dibuje el grafo
-        graph.draw()
-
-    
     def update(dt):
         #Pasa el tiempo
         window.time += dt
+
+        graph.update()
 
         #Oscilación de arriba a abajo
         graph["vaca_orbs"]["position"] = [0, np.cos(window.time), 3]
@@ -169,6 +163,19 @@ void main()
         graph["orb1"]["position"] = [np.cos(2*window.time), 0.5, np.sin(2*window.time)]
         graph["orb2"]["position"] = [0, 0.5 + np.cos(2*window.time), np.sin(2*window.time)]
         graph["orb3"]["position"] = [-np.cos(2*window.time), 0.5, -np.sin(2*window.time)]
+
+
+    @window.event
+    def on_draw():
+        glEnable(GL_DEPTH_TEST)
+        glEnable(GL_CULL_FACE)
+        glClearColor(0.1, 0.1, 0.1, 0.0)
+        
+        window.clear()
+
+        #Dibuje el grafo
+        graph.draw()
+
 
     pyglet.clock.schedule_interval(update, 1/60)
     pyglet.app.run()
