@@ -141,7 +141,8 @@ class SceneGraph():
                             pipeline["u_dirLight.direction"] = (self.transformations[src] @ self.get_forward(dst))[:3]
                             pipeline["u_dirLight.ambient"] = current_node["light"].ambient
                             pipeline["u_dirLight.diffuse"] = current_node["light"].diffuse
-                            pipeline["u_dirLight.specular"] = current_node["light"].specular
+                            if "u_dirLight.specular" in pipeline.uniforms:
+                                pipeline["u_dirLight.specular"] = current_node["light"].specular
                     elif isinstance(current_node["light"], PointLight):
                         if "u_numPointLights" in pipeline.uniforms:
                             pipeline["u_numPointLights"] = self.num_point_lights
