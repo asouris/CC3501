@@ -90,8 +90,14 @@ if __name__ == "__main__":
 
         vertices[np.random.randint(0, n*n) * 3 + 1] += 0.5
 
+    uvs = []
+    for i in range(n):
+        for j in range(n):
+            uvs += [0.0, 0.0] 
+
+
     #hacemos el mesh como siempre
-    mesh = Model(vertices, normal_data=normals, index_data=indices)
+    mesh = Model(vertices, normal_data=normals, index_data=indices, uv_data=uvs)
 
     #agregamos a la escena
     world.add_node("mesh", mesh=mesh, mode=GL_TRIANGLES, pipeline=flat_pipeline, position=[0, 0, 0], scale=[0.2, 0.2, 0.2], material=Material(ambient=[0.54, 0.27, 0.07], diffuse=[0.54, 0.27, 0.07]))

@@ -102,8 +102,13 @@ if __name__ == "__main__":
     facesT = np.array(tri.faces, dtype=np.float32).flatten()
     normalT = np.array(tri.vertex_normals, dtype=np.float32).flatten()
 
+    uvs = []
+    for i in range(n):
+        for j in range(n):
+            uvs += [0.0, 0.0] 
+            
     #hacemos el mesh como siempre
-    mesh = Model(verticesT, normal_data=normalT, index_data=facesT)
+    mesh = Model(verticesT, normal_data=normalT, index_data=facesT, uv_data=uvs)
 
     #agregamos a la escena
     world.add_node("mesh", mesh=mesh, mode=GL_TRIANGLES, pipeline=flat_pipeline, position=[0, 0, 0], scale=[0.2, 0.2, 0.2], material=Material(ambient=[0.54, 0.27, 0.07], diffuse=[0.54, 0.27, 0.07]))
