@@ -1,5 +1,5 @@
 # Auxiliares-CC3501
-Actualmente este repo contiene lo que veremos en la edicion 2025-Otoño del curso de Computación Grafica (CC3501).
+Actualmente este repo contiene lo que veremos en la edicion 2026-Otoño del curso de Computación Grafica (CC3501).
 
 ## Estructura
 - `auxiliares`: Aquí encontraran los auxiliares de este semestre.
