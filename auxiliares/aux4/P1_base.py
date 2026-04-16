@@ -23,7 +23,6 @@ class Controller(pyglet.window.Window):
     def __init__(self, title, *args, **kargs):
         super().__init__(*args, **kargs)
         self.time = 0.0
-        self.car_transform = tr.identity()
 
 
 # programa principal
@@ -230,14 +229,6 @@ if __name__ == "__main__":
     gpu_calle.color = color= colors_calle
     gpu_calle.intensity = intensities_calle
 
-    def update(dt):
-        controller.time += dt*5
-
-        # Incrementamos el ángulo de rotación
-        angle = np.radians(50) * controller.time 
-        # Aplicamos transformación de rotación
-        controller.car_transform = tr.rotationX(angle)
-
 
     @controller.event
     def on_draw():
@@ -256,12 +247,8 @@ if __name__ == "__main__":
         # Dibujamos la imagen
         gpu_calle.draw(GL.GL_TRIANGLES)
 
-        transform = np.reshape(controller.car_transform, (16, 1), order="F")
-        pipeline["transform"] = transform
 
         gpu_car.draw(GL.GL_TRIANGLES)
-
-    pyglet.clock.schedule_interval(update, 1/60)
 
     # Esta función recibe opcionalmente la frecuencia en que se actualiza la pantalla
     # por defecto es 1/60 pero podrían cambiarla: pyglet.app.run(1/120)

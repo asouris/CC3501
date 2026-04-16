@@ -24,17 +24,6 @@ class Controller(pyglet.window.Window):
         super().__init__(*args, **kargs)
         self.time = 0.0
 
-# Definimos la clase "Imagen" para generar imagenes mas facilmente
-class Image():
-    def __init__(self, path, width, height, x = 0, y = 0):
-        self.image = pyglet.resource.image(path)
-        self.image.width = width
-        self.image.height = height
-        self.x = x
-        self.y = y
-
-    def draw(self):
-        self.image.blit(self.x, self.y)
 
 # programa principal
 if __name__ == "__main__":
@@ -150,10 +139,10 @@ if __name__ == "__main__":
 
     # Ahora asignamos lo que definimos a la figura:
     # Aquí prueben cambiar GL_TRIANGLES por GL_LINE_LOOP
-    gpu_triangle = pipeline.vertex_list_indexed(16, GL.GL_TRIANGLES, index)
-    gpu_triangle.position = positions
-    gpu_triangle.color = color= colors
-    gpu_triangle.intensity = intensities
+    gpu_car = pipeline.vertex_list_indexed(16, GL.GL_TRIANGLES, index)
+    gpu_car.position = positions
+    gpu_car.color = color= colors
+    gpu_car.intensity = intensities
 
     position_calle = np.array([
         -1, 1, 0,
@@ -275,7 +264,7 @@ if __name__ == "__main__":
         transform = np.reshape(transform, (16, 1), order="F")
         pipeline["transform"] = transform
 
-        gpu_triangle.draw(GL.GL_TRIANGLES)
+        gpu_car.draw(GL.GL_TRIANGLES)
 
     # Esta función recibe opcionalmente la frecuencia en que se actualiza la pantalla
     # por defecto es 1/60 pero podrían cambiarla: pyglet.app.run(1/120)

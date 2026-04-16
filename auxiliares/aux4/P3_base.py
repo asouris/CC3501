@@ -39,14 +39,14 @@ if __name__ == "__main__":
 
         in vec3 position;
         uniform mat4 transform;
-
-        uniform vec3 u_color = vec3(1.0);
+        
+        //¿como pasamos el color???
 
         out vec3 fragColor;
 
         void main()
         {
-            fragColor = u_color;
+            fragColor = ???;
             gl_Position = transform * vec4(position, 1.0f);
         }
     """
@@ -72,8 +72,7 @@ if __name__ == "__main__":
     # Creación del pipeline
     pipeline = pyglet.graphics.shader.ShaderProgram(vert_shader, frag_shader)
 
-    vaca = mesh_from_file(root + "/assets/cow.obj")[0]['mesh']
-    vaca.init_gpu_data(pipeline)
+    # hay que importar los vertices :0
 
 
     @controller.event
@@ -86,15 +85,7 @@ if __name__ == "__main__":
         
         pipeline.use()
 
-        vacaTransform = pyglet.math.Mat4.perspective_projection(WIDTH/HEIGHT, 0.01, 100, 90) @ tr.translate(0, 0, -2)
-        pipeline["transform"] = np.reshape(vacaTransform, (16,1), order="F")
-        pipeline["u_color"] = np.array([1, 0, 1], dtype=np.float32)
-
-        # Dibujamos la imagen
-        vaca.draw(GL.GL_TRIANGLES)
-
-
-    #pyglet.clock.schedule_interval(update, 1/60)
+        # hay que pasar los uniforms y dibujar el objeto
     
     # Esta función recibe opcionalmente la frecuencia en que se actualiza la pantalla
     # por defecto es 1/60 pero podrían cambiarla: pyglet.app.run(1/120)
