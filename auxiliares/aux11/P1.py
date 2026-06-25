@@ -65,7 +65,6 @@ if __name__ == "__main__":
 
     root = os.path.dirname(__file__)
     flat_pipeline = init_pipeline(root + "/flat.vert", root + "/flat.frag") 
-    texture_pipeline = init_pipeline(root + "/textured_mesh_lit.vert", root + "/textured_mesh_lit.frag")
     cam = MyCam([0, 5, 15]) # Cámara un poco más arriba y atrás para ver el campo
 
     # Puedes cambiar "shark.obj" por una esfera (ej: "sphere.obj") si la tienes
