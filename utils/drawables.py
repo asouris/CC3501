@@ -73,7 +73,7 @@ class SpotLight():
         self.outerCutOff = outerCutOff
 
 class Model():
-    def __init__(self, position_data, uv_data=None, normal_data=None, index_data=None):
+    def __init__(self, position_data, uv_data=None, normal_data=None, index_data=None, mode=GL_TRIANGLES):
         self.position_data = position_data
         self.uv_data = uv_data
         self.normal_data = normal_data
@@ -82,6 +82,7 @@ class Model():
             self.index_data = np.array(index_data, dtype=np.uint32)
 
         self.gpu_data = None
+        self.mode = mode
 
     def init_gpu_data(self, pipeline):
 
@@ -101,9 +102,9 @@ class Model():
             count += 1
 
         if self.index_data is not None:
-            self.gpu_data = pipeline.vertex_list_indexed(size // count, GL_TRIANGLES, self.index_data)
+            self.gpu_data = pipeline.vertex_list_indexed(size // count, self.mode, self.index_data)
         else:
-            self.gpu_data = pipeline.vertex_list(size // count, GL_TRIANGLES)
+            self.gpu_data = pipeline.vertex_list(size // count, self.mode)
         
         self.gpu_data.position[:] = self.position_data
         if "texCoord" in pipeline.attributes:
@@ -117,6 +118,7 @@ class Model():
             glEnable(GL_CULL_FACE)
         else:
             glDisable(GL_CULL_FACE)
+
         self.gpu_data.draw(mode)
         glEnable(GL_CULL_FACE)
 

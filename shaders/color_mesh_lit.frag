@@ -129,6 +129,8 @@ vec3 computeSpotLight(vec3 normal, vec3 viewDir, SpotLight light) {
 }
 
 
+uniform int hit = 0;
+
 void main()
 {
     vec3 normal = normalize(fragNormal);
@@ -146,6 +148,10 @@ void main()
     if (u_numSpotLights > 0 && u_numSpotLights <= MAX_SPOT_LIGHTS) {
         for (int i = 0; i < u_numSpotLights; i++)
             result += computeSpotLight(normal, viewDir, u_spotLights[i]);
+    }
+
+    if(hit > 0){
+        result += vec3(0, 1, 0);
     }
 
     outColor = vec4(result, 1.0f);
