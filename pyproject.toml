@@ -1,0 +1,18 @@
+[project]
+name = "CC3501"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "networkx>=3.6.1",
+    "numpy<2.4.0",
+    "pyglet>=2.1.13",
+    "pyopengl>=3.1.10",
+    "pyvista>=0.47.1",
+    "rtree>=1.4.1",
+    "trimesh>=4.11.3",
+    "pillow>=12.1.1",
+    "scipy>=1.17.1"
+]

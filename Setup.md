@@ -1,3 +1,5 @@
+ ✩ Al terminar de instalar todas las herramientas, vayan al **FINAL** del instructivo, donde verán como probar todo junto y ejecutar un ejemplo. Esto será válido para todos los sistemas operativos.
+
 ## Windows
 
 ### Python
@@ -9,13 +11,13 @@ Abrimos el instalador y **TENEMOS** que seleccionar `Add python.exe to PATH`, si
 ![](./captures/1.png)
 Cuando la instalación termine, habren una terminal y escriben:
 
-``` powershell
+``` bash
 python
 ```
 
 Si todo está bien deberían obtener lo siguiente o algo similar.
 
-``` powershell
+``` bash
 Python 3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024, 22:03:32) [MSC v.1937 64 bit (AMD64)] on win32
 Type "help", "copyright", "credits" or "license" for more information.
 >>
@@ -27,95 +29,46 @@ No queremos usar esto asi que cierrenlo con
 >>> exit()
 ```
 
-Ahora, el instalador debería haber intalado pip junto a python. Prueben si lo tienen escribiendo en la terminal
-
-``` powershell
-pip
+### UV
+[UV](https://docs.astral.sh/uv/) es un gestor de paquetes para python. Nos permitirá distribuirles una lista de librerías necesaria para ejecutar el material de referencia.
+Para instalarlo ejecuten lo siguiente en una terminal:
+``` bash
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Si les aparece un texto largo con comandos estan bien :).
-Si les dice que el comando no existe (*no deberia pasar pero si es que pasa...*) tienen que instalar pip como dicen por aquí: https://www.liquidweb.com/kb/install-pip-windows/
+Al escribir y ejecutar `uv` en la terminal, deberían ver lo siguiente:
+``` bash
+> uv
+An extremely fast Python package manager.
 
-### Creacion del venv
-
-*(Para Powershell, si tienen otro shell me piden ayuda pero si tienen otro shell probablemente no necesiten mi ayuda)*
-
-Vamos a usar los virtual environments (*venv*) de Python para contener las librerias que necesitamos.
-Primero en la terminal vamos a un lugar donde queramos guardar nuestro trabajo.
-Al abrir una terminal nueva siempre se van a encontrar en el `home`.
-Aquí voy a crear una carpeta llamada `Grafica` con el comando `mkdir`
-
-``` powershell
-mkdir Grafica
-```
-
-Luego con el comando `cd` me muevo dentro de esa carpeta:
-
-``` powershell
-cd Grafica
-```
-
-Ahora creamos un `venv` escribiendo lo siguiente:
-
-``` powershell
-python -m venv venv
-```
-
-*Aqui el segundo venv es un nombre que ustedes pueden cambiar si quieren*
-Se deberia haber creado una carpeta llamada **venv**
-
-Ahora queremos ejecutar un script que **activa el** **venv**. Para ello, estando en la carpeta donde esta `venv` vamos a escribir:
-
-``` powershell
-venv\Scripts\Activate.ps1
-```
-
-Si no les funciona intenten con esto:
-
-``` powershell
-.\venv\Scripts\Activate
-```
-
-Si esto le produce algun error, lo más probable es que por defecto windows no les permite ejecutar scripts (*medida de seguridad, no descarguen scripts random de internet porfavor*).
-Para bypasear eso ejecutamos lo siguiente:
-
-``` powershell
-Set-ExecutionPolicy AllSigned -Scope CurrentUser
-```
-
-y volvemos a intentar.
-
-Si salio bién deberían ver un parentesis de color al inicio de su linea en la terminal indicando que estan en el **venv**.
-
-``` powershell
-(venv) PS C:\Users\su_nombre\Grafica
+Usage: uv [OPTIONS] <COMMAND>
+...
 ```
 
 ### Git
+[Git](https://git-scm.com/) es un sistema de control de versiones que usaremos junto a la plataforma [Github](https://github.com/) para distribuirles los códigos de ejemplos y las pautas a los auxiliares. Instalen Git con:
 
-Instalen Git con
-
-``` powershell
-`winget install --id Git.Git -e --source winget`
+``` zsh
+winget install --id Git.Git -e --source winget
 ```
+O en su defecto, pueden descargarlo de la siguiente página web: https://git-scm.com/install/windows
 
 ### Clonar repositorio
-
-Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-![](./captures/2.png)
-
-Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
-
-``` powershell
-cd Grafica/venv/
-git clone https://github.com/asouris/CC3501.git
+Esto se refiere a obtener una copia de todo el código que está disponible en un espacio de Github o "repositorio". Para esto usamos `git`. Primero copian el link, el cual es "https://github.com/asouris/CC3501.git", y ejecutan en una terminal:
+``` zsh
+git clone "https://github.com/asouris/CC3501.git"
 ```
+
+Esto les creará una carpeta llamada `CC3501` donde estará todo el material de referencia que pueden usar.
+
+También pueden descargar el repositorio como un `zip` abriendo el link en un navegador y descargandolo desde el boton verde.
+
+![](image.png)
 
 ## MacOs
 
-*(Para Zsh, si tienen otro shell me piden ayuda pero si tienen otro shell probablemente no necesiten mi ayuda)*
 ### Python
-Mac viene con una version antigua de python. Si escriben en la terminal:
+Mac viene con una version antigua de python (python2). Si escriben en la terminal:
 
 ``` zsh
 python3
@@ -149,62 +102,44 @@ Ahora instalan **python** con:
 brew install python3
 ```
 
-### Creacion del venv
-
-Vamos a usar los virtual environments (*venv*) de Python para contener las librerias que necesitamos.
-Primero en la terminal vamos a un lugar donde queramos guardar nuestro trabajo.
-Al abrir una terminal nueva siempre se van a encontrar en el `home`.
-Aquí voy a crear una carpeta llamada `Grafica` con el comando `mkdir`
-
-``` powershell
-mkdir Grafica
-```
-
-Luego con el comando `cd` me muevo dentro de esa carpeta:
-
-``` powershell
-cd Grafica
-```
-
-Ahora creamos un `venv` escribiendo lo siguiente:
-
+### UV
+[UV](https://docs.astral.sh/uv/) es un gestor de paquetes para python. Nos permitirá distribuirles una lista de librerías necesaria para ejecutar el material de referencia.
+Para instalarlo ejecuten lo siguiente en una terminal:
 ``` zsh
-python3 -m venv venv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-*Aqui el segundo venv es un nombre que ustedes pueden cambiar si quieren*
-Se deberia haber creado una carpeta llamada **venv**
-
-Ahora queremos ejecutar un script que activa en **venv**. Para ello vamos a ejecutar:
-
+Al escribir y ejecutar `uv` en la terminal, deberían ver lo siguiente:
 ``` zsh
-source ~/Grafica/venv/bin/activate
+> uv
+An extremely fast Python package manager.
+
+Usage: uv [OPTIONS] <COMMAND>
+...
 ```
 
-*(El path puede cambiar dependiendo de como organizaron sus carpetas)*
-Aparecerá **(venv)** al lado izquierdo de su prompt, indicando que dicho environment se encuentra activo.
+
 ### Git
-Instalen git ejecutando:
+[Git](https://git-scm.com/) es un sistema de control de versiones que usaremos junto a la plataforma [Github](https://github.com/) para distribuirles los códigos de ejemplos y las pautas a los auxiliares. Instalen Git con:
 
 ``` zsh
 brew install git
 ```
 
 ### Clonar repositorio
-
-Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-![](./captures/2.png)
-
-Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
-
-``` bash
-cd Grafica/venv
-git clone https://github.com/asouris/CC3501.git
+Esto se refiere a obtener una copia de todo el código que está disponible en un espacio de Github o "repositorio". Para esto usamos `git`. Primero copian el link, el cual es "https://github.com/asouris/CC3501.git", y ejecutan en una terminal:
+``` zsh
+git clone "https://github.com/asouris/CC3501.git"
 ```
+
+Esto les creará una carpeta llamada `CC3501` donde estará todo el material de referencia que pueden usar.
+
+También pueden descargar el repositorio como un `zip` abriendo el link en un navegador y descargandolo desde el boton verde.
+
+![](image.png)
 
 ## Linux (Debian/Ubuntu)
 
-*(Para bash, si tienen otro shell me piden ayuda pero si tienen otro shell probablemente no necesiten mi ayuda)*
 ### Python
 Primero vemos si tenemos python. Ejecuten:
 
@@ -224,80 +159,67 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 2.  Les tire error y no lo tienen
 
-Si no tienen python instalado, ejecuten en el mismo orden lo siguiente:
+Si no tienen python instalado, ejecuten en el mismo orden lo siguiente (esto no es válido para todos los gestores de paquetes...):
 
 ``` bash
 sudo apt-get update
 sudo apt-get install python3 python3-dev python3-pip python3-venv
 ```
 
-### Creacion del venv
-
-Vamos a usar los virtual environments (*venv*) de Python para contener las librerias que necesitamos.
-Primero en la terminal vamos a un lugar donde queramos guardar nuestro trabajo.
-Al abrir una terminal nueva siempre se van a encontrar en el `home`.
-Aquí voy a crear una carpeta llamada `Grafica` con el comando `mkdir`
-
-``` powershell
-mkdir Grafica
+### UV
+[UV](https://docs.astral.sh/uv/) es un gestor de paquetes para python. Nos permitirá distribuirles una lista de librerías necesaria para ejecutar el material de referencia.
+Para instalarlo ejecuten lo siguiente en una terminal:
+``` zsh
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Luego con el comando `cd` me muevo dentro de esa carpeta:
+Al escribir y ejecutar `uv` en la terminal, deberían ver lo siguiente:
+``` zsh
+> uv
+An extremely fast Python package manager.
 
-``` powershell
-cd Grafica
+Usage: uv [OPTIONS] <COMMAND>
+...
 ```
 
-Ahora cree el venv ejecutando:
-
-``` bash
-python3 -m venv venv
-```
-
-*Aqui el segundo venv es un nombre que ustedes pueden cambiar si quieren*
-Se deberia haber creado una carpeta llamada **venv**.
-
-Ahora queremos ejecutar un script que **activa el** **venv**. Para ello vamos a escribir:
-
-``` bash
-source ~/Grafica/venv/bin/activate
-```
-
-*(El path puede cambiar dependiendo de como organizaron sus carpetas)*
-Aparecerá **(venv)** al lado izquierdo de su prompt, indicando que dicho environment se encuentra activo.
 
 ### Git
-
-Instalen con
+[Git](https://git-scm.com/) es un sistema de control de versiones que usaremos junto a la plataforma [Github](https://github.com/) para distribuirles los códigos de ejemplos y las pautas a los auxiliares. Instalen Git con el siguiente comando (o con su gestor de paquetes favorito....):
 
 ``` bash
 sudo apt-get install git
 ```
 
 ### Clonar repositorio
-
-Con git pueden clonar el repositorio en su maquina. Primero copian el link.
-![](./captures/2.png)
-
-Al clonar el repo se les va a crear una carpeta, asi que antes, **en la terminal** vayan donde quieren colocar el repo (*vayan dentro del venv*). Luego usan `git clone` para copiar el repo
-
-``` bash
-cd Grafica/venv
-git clone https://github.com/asouris/CC3501.git
+Esto se refiere a obtener una copia de todo el código que está disponible en un espacio de Github o "repositorio". Para esto usamos `git`. Primero copian el link, el cual es "https://github.com/asouris/CC3501.git", y ejecutan en una terminal:
+``` zsh
+git clone "https://github.com/asouris/CC3501.git"
 ```
 
-## Probando un ejemplo (para todos)
+Esto les creará una carpeta llamada `CC3501` donde estará todo el material de referencia que pueden usar.
 
-Con nuestro **venv activo**, vamos a instalar las librerias:
+También pueden descargar el repositorio como un `zip` abriendo el link en un navegador y descargandolo desde el boton verde.
 
+![](image.png)
+
+## Probando un ejemplo (para todos los sistemas)
+
+Abran una terminal y se mueven hasta la carpeta CC3501. 
+Para ello usan el comando `cd`. Por ejemplo si mi carpeta CC3501 está en mi escritorio haría lo siguiente:
+
+en windows:
 ``` zsh
-pip install numpy pyglet pyopengl trimesh scipy networkx pillow
+cd Desktop\CC3501
 ```
 
-Y habiendo clonado el repositorio previamente, vamos a ejecutar un ejemplo llamado **triangulo.py**
-
+en macos o linux:
 ``` zsh
-python CC3501/triangulo.py
+cd ~/Desktop/CC3501
+```
+
+Ahora pueden ejecutar un ejemplo con:
+``` zsh
+uv run triangulo.py 
 ```
 
 Si todo sale bien deberia habrirse una ventana y veriamos algo así:
