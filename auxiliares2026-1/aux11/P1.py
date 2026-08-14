@@ -60,7 +60,7 @@ P_arco   = np.array([ 8.0, 0.0, 0.0]) # Posición del arco
 
 if __name__ == "__main__":
 
-    controller = Controller(1000, 1000, "Auxiliar: Súper Tiros Dinámicos")
+    controller = Controller(1200, 1000, "Auxiliar: Súper Tiros Dinámicos")
     controller.set_exclusive_mouse(True)
 
     root = os.path.dirname(__file__)
