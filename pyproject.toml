@@ -14,5 +14,9 @@ dependencies = [
     "rtree>=1.4.1",
     "trimesh>=4.11.3",
     "pillow>=12.1.1",
-    "scipy>=1.17.1"
+    "scipy>=1.17.1",
+    "perlin-noise"
 ]
+
+[tool.basedpyright]
+typeCheckingMode = "off"
